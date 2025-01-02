@@ -1,0 +1,96 @@
+import 'dart:ffi';
+
+// Structure
+abstract class Role{
+  void displayRole();
+}
+
+// person class
+class Person implements Role{
+  String role;
+  String name;
+  int age;
+  String address;
+  Person(this.name, this.age, this.address, this.role);
+  getName(){
+    return name;
+  }
+  getAge(){
+    return age;
+  }
+  getAddress(){
+    return address;
+  }
+  @override
+  void displayRole() {
+    print("Role : person");
+  }
+}
+
+// Student class
+class Student extends Person{
+  String studentID;
+  List<int> courseScores;
+  String grade;
+  Student(this.studentID,this.courseScores,this.grade,name,age,address,role) : super(name,age,address,role);
+  @override
+  void displayRole() {
+    print("Role : Student");
+  }
+  double calculateAverageScore(){
+    int sum = 0;
+    double avg = 0;
+    for(int i = 0; i <= 2; i++){
+      sum += courseScores[i];
+    }
+    avg = sum/3;
+    return double.parse(avg.toStringAsFixed(1));
+  }
+}
+
+// teacher class
+class Teacher extends Person{
+  String teacherID;
+  List<String> courseTaught;
+  Teacher(this.teacherID,this.courseTaught,name,age,address,role) : super(name,age,address,role);
+  @override
+  void displayRole() {
+    print("Role : Teacher");
+  }
+  void displayCourseTaught(){
+    for(int i = 0 ; i <= 2; i++ )
+      print(courseTaught[i]);
+  }
+}
+
+// main function
+main(){
+  // ceating obj for the Student class and Teacher class to access data
+  Student objStudent = Student('CSE2401031019',[90,85,82],"A+","John Doe",20,"123 Main Street","Student");
+  Teacher objTeacher = Teacher("TEC456",['Math','English','Bangla']," Mrs. Smith",35,"456 Oak St","Teacher");
+
+  // Student information
+  print("Student information");
+  objStudent.displayRole();
+  print("Name : ${objStudent.name}");
+  print("Age : ${objStudent.age}");
+  print("Address : ${objStudent.address}");
+  print("Average Score : ${objStudent.calculateAverageScore()}");
+
+  print("\n\n");
+
+  // Teacher information
+  print("Teacher information");
+  objTeacher.displayRole();
+  print("Name : ${objTeacher.name}");
+  print("Age : ${objTeacher.age}");
+  print("Address : ${objTeacher.address}");
+  print("Courses Taught");
+  print("- ${objTeacher.courseTaught[0]}");
+  print("- ${objTeacher.courseTaught[1]}");
+  print("- ${objTeacher.courseTaught[2]}");
+
+
+
+
+}
